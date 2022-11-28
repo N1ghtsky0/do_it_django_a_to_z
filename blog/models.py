@@ -27,7 +27,7 @@ class Tag(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/blog/Tag/{self.slug}/'
+        return f'/blog/tag/{self.slug}/'
 
 class Post(models.Model):
     title = models.CharField(max_length=30)
