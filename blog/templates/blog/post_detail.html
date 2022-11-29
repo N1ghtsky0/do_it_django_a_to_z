@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block head_title %}
     {{ post.title }} - Blog
 {% endblock %}
@@ -69,28 +69,36 @@
         <!-- Comments section-->
         <section class="mb-5">
             <div class="card bg-light">
+                <h5 class="card-header">Leave a Comment:</h5>
                 <div class="card-body">
-                    <!-- Comment form-->
-                    <form class="mb-4">
-                        <textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
-                        <button type="submit" class="btn btn-primary mb-2" style="float: right">Submit</button>
-                    </form>
-
-                    {% if post.comment_set.exists %}
-                        {% for comment in post.comment_set.iterator %}
-                            <div class="media mb-4" id="comment-{{ comment.pk }}">
-                                <img class="d-flex me-3 rounded-circle" src="http://pacehole.it/50x50" alt="">
-                                <div class="media-body">
-                                    <h5 class="mt-0">
-                                        {{ comment.author.username }} &nbsp;&nbsp;<small class="text-muted">{{ comment.created_at }}</small>
-                                    </h5>
-                                    <p>{{ comment.content | linebreaks }}</p>
-                                </div>
+                    {% if user.is_authenticated %}
+                        <!-- Comment form-->
+                        <form id="comment-form" method="post" action="{{ post.get_absolute_url }}new_comment/" class="mb-4">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ comment_form | crispy }}
                             </div>
-                        {% endfor %}
+                            <button type="submit" class="btn btn-primary mt-2" style="float: right">Submit</button>
+                        </form>
+                    {% else %}
+                        <a role="button" class="btn btn-outline-dark btn-sm w-100" href="#" data-toggle="modal" data-target="#loginModal">Log in and leave a comment</a>
                     {% endif %}
                 </div>
             </div>
+
+            {% if post.comment_set.exists %}
+                {% for comment in post.comment_set.iterator %}
+                    <div class="d-flex mt-3" id="comment-{{ comment.pk }}">
+                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                        <div class="ms-3">
+                            <h5 class="fw-bold">
+                                {{ comment.author.username }} &nbsp;&nbsp;<small class="text-muted">{{ comment.created_at }}</small>
+                            </h5>
+                            <p>{{ comment.content | linebreaks }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </section>
     </div>
 {% endblock %}
