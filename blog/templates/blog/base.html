@@ -22,8 +22,10 @@
                         <div class="card-header">Search</div>
                         <div class="card-body">
                             <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                                <input class="form-control" type="text" placeholder="Search for ..." id="search-input"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" id="button-search" type="button" onclick="searchPost();">Go!</button>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -49,6 +51,25 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function searchPost(){
+                let searchValue = document.getElementById('search-input').value.trim();
+                if (searchValue.length > 1){
+                    location.href="/blog/search/" + searchValue + "/";
+                }
+                else{
+                    alert("검색어(" + searchValue + ")가 너무 짧습니다.");
+                }
+            };
+
+            document.getElementById('search-input').addEventListener('keyup', function(event)
+            {
+                if (event.key == 'Enter'){
+                    searchPost();
+                }
+            });
+        </script>
         {% include 'blog/footer.html' %}
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
