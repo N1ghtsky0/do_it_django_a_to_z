@@ -13,6 +13,7 @@ from django.utils.text import slugify
 class PostList(ListView):
     model = Post
     ordering = '-pk'
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data()
@@ -50,7 +51,6 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             tags_str = self.request.POST.get('tags_str')
             if tags_str:
                 tags_str = tags_str.strip()
-
                 tags_str = tags_str.replace(',', ';')
                 tags_list = tags_str.split(';')
 
