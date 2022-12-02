@@ -1,17 +1,53 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>밤하늘입니다!</title>
-</head>
-<body>
-<nav>
-  <a href="/blog/">Blog</a>
-  <a href="/about_me/">About Me</a>
-</nav>
+    <title> Do it Django </title>
 
-<h1>안녕하세요. 밤하늘입니다.</h1>
-<h2>대문페이지</h2>
-<h3>미구현</h3>
+    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'single_pages/css/landing.css' %}" media="screen">
+    <script src="https://kit.fontawesome.com/e1e000292f.js" crossorigin="anonymous"></script>
+</head>
+
+{% include 'blog/navbar.html' %}
+<body>
+    <section>
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-6">
+                    <h1 class="mt-5">Do It Django</h1>
+                    <p>Do It Django를 보며 따라 만드는 나만의 블로그</p>
+                </div>
+
+                <div class="col-lg-5 mt-5">
+                    <h2>Blog - Recent posts</h2>
+                        {% for post in recent_posts %}
+                            <div class="card mt-1">
+                                <div class="card-body">
+                                    <h6><a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">{{ post.title }}</a></h6>
+                                    <span class="badge rounded-pill text-bg-light" style="float: right">
+                                        <img class="me-1 rounded-circle" width="20px" src="{{ post.get_avatar_url }}" alt="{{ post.author }}">
+                                        {{ post.author.username }}
+                                        &nbsp;
+                                        &nbsp;
+                                        {{ post.created_at }}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="fixed-bottom">
+        {% include 'blog/footer.html' %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 </body>
 </html>
