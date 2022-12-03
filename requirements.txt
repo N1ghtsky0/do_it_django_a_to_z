@@ -1,0 +1,6 @@
+django
+django-markdownx
+django-extensions
+django-crispy-forms
+django-allauth
+beautifulsoup4
