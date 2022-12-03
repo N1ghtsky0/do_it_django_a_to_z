@@ -10,8 +10,10 @@
     <script src="https://kit.fontawesome.com/e1e000292f.js" crossorigin="anonymous"></script>
 </head>
 
-{% include 'blog/navbar.html' %}
 <body>
+
+    {% include 'blog/navbar.html' %}
+
     <section>
         <div class="container">
             <div class="row justify-content-between">
@@ -22,24 +24,24 @@
 
                 <div class="col-lg-5 mt-5">
                     <h2>Blog - Recent posts</h2>
-                        {% for post in recent_posts %}
-                            <div class="card mt-1">
-                                <div class="card-body">
-                                    <h6><a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">{{ post.title }}</a></h6>
-                                    <span class="badge rounded-pill text-bg-light" style="float: right">
-                                        <img class="me-1 rounded-circle" width="20px" src="{{ post.get_avatar_url }}" alt="{{ post.author }}">
-                                        {{ post.author.username }}
-                                        &nbsp;
-                                        &nbsp;
-                                        {{ post.created_at }}
-                                    </span>
-                                </div>
+                    {% for post in recent_posts %}
+                        <div class="card mt-1">
+                            <div class="card-body">
+                                <h6><a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">{{ post.title }}</a></h6>
+                                <span class="badge rounded-pill text-bg-light" style="float: right">
+                                    <img class="me-1 rounded-circle" width="20px" src="{{ post.get_avatar_url }}" alt="{{ post.author }}">
+                                    {{ post.author.username }}
+                                    &nbsp;
+                                    &nbsp;
+                                    {{ post.created_at }}
+                                </span>
                             </div>
-                        {% endfor %}
-                    </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+
     </section>
 
     <div class="fixed-bottom">
